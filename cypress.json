@@ -1,0 +1,8 @@
+{
+    "baseUrl": "https://www.lieferando.de",
+    "viewportWidth": 1280,
+    "viewportHeight": 720,
+    "numTestsKeptInMemory": 0,
+    "waitForAnimations": false,
+    "video": false
+}

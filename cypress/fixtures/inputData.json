@@ -1,0 +1,15 @@
+{
+    "location": {
+        "address": "Bürgerweide 30c"
+    },
+    "cuisines": {
+        "valid": [
+            "Sandwiches",
+            "Italian",
+            "Salads"
+        ],
+        "invalid": [
+            "Fish"
+        ]
+    }
+}

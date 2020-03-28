@@ -1,0 +1,14 @@
+{
+  "homePage": {
+    "titleText": {
+      "de": "Zeit, Essen zu bestellen",
+      "en": "Time to order food"
+    }
+  },
+  "restaurantsListPage": {
+    "noRestaurantsFoundText": {
+      "de": "placeholder german text",
+      "en": "No restaurants found"
+    }
+  }
+}
