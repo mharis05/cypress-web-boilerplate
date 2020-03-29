@@ -32,7 +32,7 @@ describe('Lieferando basic tests', function () {
             })
     })
 
-    it('Validates that search results for a location shows restaurants for that location', function () {
+    it('Validates that search results for a location sets address for restaurants for that location', function () {
         const address = inputData.location.address
         cy.searchForLocation("home", address)
         cy.get('.topbar__title').should('be.visible').then(function ($button) {

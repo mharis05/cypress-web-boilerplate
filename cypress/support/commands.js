@@ -53,6 +53,11 @@ Cypress.Commands.add("openAppAndSetLanguage", () => {
     cy.changeLanguage("en")
 })
 
+Cypress.Commands.add("openRestaurantsList", (language, city, postcode) => {
+    cy.visit(`https://www.lieferando.de/en/order-takeaway-${city}-${postcode}`)
+    cy.setViewPort()
+})
+
 Cypress.Commands.add("selectCuisine", (cuisineLocator, cuisine) => {
     cy.get(cuisineLocator).contains(cuisine).then(function ($element) {
         cy.get($element).scrollIntoView().click({force: true})

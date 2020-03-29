@@ -15,11 +15,10 @@ describe('Restaurant List Tests', function () {
     })
 
     beforeEach(function () {
-        cy.openAppAndSetLanguage()
-        cy.searchForLocation("home", inputData.location.address)
+        cy.openRestaurantsList("en", inputData.location.city, inputData.location.postcode)
     })
 
-    it.only('Validates that selecting cuisine type shows restaurants from that cuisine', function () {
+    it('Validates that selecting cuisine type shows restaurants from that cuisine', function () {
         var cuisines = inputData.cuisines.valid
         cuisines.forEach(cuisine => {
             cy.selectCuisine(locators.cuisineCategory, cuisine).then(function ($element) {
@@ -49,11 +48,6 @@ describe('Restaurant List Tests', function () {
     it.skip('(This test takes 3 minutes) Validates that selecting category shows restaurants of that category', function () {
         cy.get(locators.cuisineCategory).each(function ($element) {
             cy.get($element).click()
-            // cy.get(".js-restaurants-counter-default").should(($restaurantCounter) => {
-            //     if($restaurantCounter.is(':visible')){
-            //       return false  
-            //     }
-            // })
             cy.get(locators.restaurantCell)
                 .each(function ($restaurantCuisine) {
                     cy.get($restaurantCuisine).find(locators.restaurantCuisine).then(function ($cuisine) {
@@ -62,6 +56,25 @@ describe('Restaurant List Tests', function () {
                 })
 
         })
+    })
+
+    it('Validates that Devlivery time, Delivery fee and Min Order amount is shown for each open restaurant',
+        function () {
+            cy.get(locators.openRestaurantCell).first()
+                .then(function ($restaurantCell) {
+                    cy.get($restaurantCell).find(locators.restaurantDeliveryTimeText).contains(/^([\d]*min)$/)
+                    cy.get($restaurantCell).find(locators.restaurantDeliveryCostText).contains(/^([\d]*,[\d]* €)|(FREE)$/)
+                    cy.get($restaurantCell).find(locators.restaurantDeliveryMinOrderText).contains(/^(Min\. [\d]*,[\d]* €)$/)
+                })
+        })
+
+    it('Validates that Delivery button is present and selected by default', function () {
+        cy.get(locators.deliveryButton).contains("Delivery").should("have.class", "switch-active")
+
+    })
+
+    it('Validates that Pickup button is present and deselected by default', function () {
+        cy.get(locators.pickupButton).contains("Pickup").should("not.have.class", "switch-active")
     })
 
 })

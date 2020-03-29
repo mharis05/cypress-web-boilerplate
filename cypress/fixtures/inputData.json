@@ -1,6 +1,8 @@
 {
     "location": {
-        "address": "Bürgerweide 30c"
+        "address": "Bürgerweide 30c",
+        "city" : "hamburg",
+        "postcode": "20535"
     },
     "cuisines": {
         "valid": [
