@@ -55,6 +55,6 @@ Cypress.Commands.add("openAppAndSetLanguage", () => {
 
 Cypress.Commands.add("selectCuisine", (cuisineLocator, cuisine) => {
     cy.get(cuisineLocator).contains(cuisine).then(function ($element) {
-        cy.get($element).click()
+        cy.get($element).scrollIntoView().click({force: true})
     })
 })

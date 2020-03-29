@@ -1,3 +1,5 @@
+import * as locators from '../fixtures/restaurantListLocators'
+
 let inputData
 let expectedData
 describe('Restaurant List Tests', function () {
@@ -17,15 +19,14 @@ describe('Restaurant List Tests', function () {
         cy.searchForLocation("home", inputData.location.address)
     })
 
-    it('Validates that selecting cuisine type shows restaurants from that cuisine', function () {
+    it.only('Validates that selecting cuisine type shows restaurants from that cuisine', function () {
         var cuisines = inputData.cuisines.valid
         cuisines.forEach(cuisine => {
-            cy.selectCuisine("a[data-type='Cuisine'] + .subcatlink", cuisine).then(function ($element) {
+            cy.selectCuisine(locators.cuisineCategory, cuisine).then(function ($element) {
 
-                cy.get(".js-restaurant:not('.restaurant_hide'):not('#SingleRestaurantTemplateIdentifier')")
+                cy.get(locators.restaurantCell)
                     .each(function ($restaurantCuisine) {
-                        cy.get($restaurantCuisine).find(".kitchens").then(function ($cuisine) {
-                            console.log("Cuisine found:", $cuisine.text().trim())
+                        cy.get($restaurantCuisine).find(locators.restaurantCuisine).then(function ($cuisine) {
                             expect($cuisine.text().trim()).to.include($element.text().trim())
                         })
                     })
@@ -38,24 +39,24 @@ describe('Restaurant List Tests', function () {
         var cuisines = inputData.cuisines.invalid
         var expectedErrorText = expectedData.restaurantsListPage.noRestaurantsFoundText.en
         cuisines.forEach(cuisine => {
-            cy.selectCuisine("a[data-type='Cuisine'] + .subcatlink", cuisine).then(function ($element) {
-                cy.get(".js-noresults-search > h3".trim()).contains(expectedErrorText.trim())
+            cy.selectCuisine(locators.cuisineCategory, cuisine).then(function ($element) {
+                cy.get(locators.noRestaurantFoundText.trim()).contains(expectedErrorText.trim())
             })
         });
 
     })
 
     it.skip('(This test takes 3 minutes) Validates that selecting category shows restaurants of that category', function () {
-        cy.get("a[data-type='Cuisine'] + .subcatlink").each(function ($element) {
+        cy.get(locators.cuisineCategory).each(function ($element) {
             cy.get($element).click()
             // cy.get(".js-restaurants-counter-default").should(($restaurantCounter) => {
             //     if($restaurantCounter.is(':visible')){
             //       return false  
             //     }
             // })
-            cy.get(".js-restaurant:not('.restaurant_hide'):not('#SingleRestaurantTemplateIdentifier')")
+            cy.get(locators.restaurantCell)
                 .each(function ($restaurantCuisine) {
-                    cy.get($restaurantCuisine).find(".kitchens").then(function ($cuisine) {
+                    cy.get($restaurantCuisine).find(locators.restaurantCuisine).then(function ($cuisine) {
                         expect($cuisine.text().trim()).to.include($element.text().trim())
                     })
                 })
